@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pushd $HOME/.IntelliJIdea2018.1/config/options
+
+xmlstarlet ed --omit-decl --inplace -u "/application/component[@name='UISettings']/option[@name='FONT_SIZE']/@value" -v "12" ui.lnf.xml
+xmlstarlet ed --omit-decl --inplace -u "/application/component[@name='EditorColorsManagerImpl']/global_color_scheme/@name" -v "3840x2160" colors.scheme.xml
+xmlstarlet ed --omit-decl --inplace \
+  -d "/application/component/option[@name='OVERRIDE_NONIDEA_LAF_FONTS']" \
+  -s /application/component -t elem -n option -v ""  \
+  -i "/application/component/option[not(@name)]" -t attr -n name -v OVERRIDE_NONIDEA_LAF_FONTS \
+  -i "/application/component/option[@name='OVERRIDE_NONIDEA_LAF_FONTS']" -t attr -n value -v true \
+   ui.lnf.xml
+
+popd > /dev/null
